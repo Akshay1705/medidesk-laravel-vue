@@ -14,7 +14,7 @@ A modern single-page application for managing clinic appointments, built using *
 
 ## 📸 Screenshots
 
-> *(You can add a few screenshots here)*
+> *(pending)*
 
 ## 🛠️ Tech Stack
 
