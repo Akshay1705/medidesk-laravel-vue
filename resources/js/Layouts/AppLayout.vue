@@ -1,0 +1,32 @@
+<script setup>
+import { Link, usePage } from '@inertiajs/vue3'
+
+const user = usePage().props.auth.user
+</script>
+
+<template>
+    <div class="flex h-screen bg-gray-100">
+        <!-- Sidebar -->
+        <aside class="bg-white w-64 p-6 shadow flex flex-col justify-between fixed left-0 top-0 bottom-0">
+            <div>
+                <h1 class="text-2xl font-bold mb-6 text-blue-600">🩺 MediDesk</h1>
+                <nav class="space-y-3">
+                    <Link href="/appointments" class="block text-gray-800 hover:text-blue-600">📋 Appointments</Link>
+                    <Link href="/appointments/completed" class="block text-gray-800 hover:text-blue-600">✅ Completed
+                    </Link>
+                    <Link href="/appointments/create" class="block text-gray-800 hover:text-blue-600">➕ Add Appointment
+                    </Link>
+                </nav>
+            </div>
+            <div class="text-sm text-gray-600">
+                <p class="mb-1">👤 {{ user.name }}</p>
+                <Link href="/logout" method="post" as="button" class="text-red-600 hover:underline">Logout</Link>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 ml-64 overflow-y-auto p-6">
+            <slot />
+        </main>
+    </div>
+</template>
