@@ -4,6 +4,11 @@ import { Link } from '@inertiajs/vue3'
 
 defineOptions({ layout: AppLayout })
 defineProps(['appointments'])
+
+const formatDate = (dateStr) => {
+    const [year, month, day] = dateStr.split('-')
+    return `${day}-${month}-${year}`
+}
 </script>
 
 <template>
@@ -26,7 +31,7 @@ defineProps(['appointments'])
                     <tr v-for="a in appointments" :key="a.id" class="border-b hover:bg-gray-50">
                         <td class="p-3 text-center">{{ a.name }}</td>
                         <td class="p-3 text-center">{{ a.phone }}</td>
-                        <td class="p-3 text-center">{{ a.appointment_date }}</td>
+                        <td class="p-3 text-center">{{ formatDate(a.appointment_date) }}</td>
                         <td class="p-3 text-center">{{ a.appointment_time }}</td>
                     </tr>
 

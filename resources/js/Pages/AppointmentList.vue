@@ -49,6 +49,13 @@ watch([search, todayOnly], () => {
         replace: true,
     })
 })
+
+const formatDate = (dateStr) => {
+    const [year, month, day] = dateStr.split('-')
+    return `${day}-${month}-${year}`
+}
+
+
 </script>
 
 <template>
@@ -82,7 +89,7 @@ watch([search, todayOnly], () => {
                     <tr v-for="a in appointments.data" :key="a.id" class="border-b hover:bg-gray-50">
                         <td class="p-3 text-center">{{ a.name }}</td>
                         <td class="p-3 text-center">{{ a.phone }}</td>
-                        <td class="p-3 text-center">{{ a.appointment_date }}</td>
+                        <td class="p-3 text-center">{{ formatDate(a.appointment_date) }}</td>
                         <td class="p-3 text-center">{{ a.appointment_time }}</td>
                         <td class="p-3 text-center">
                             <button @click="markDone(a.id)" :disabled="processing"
