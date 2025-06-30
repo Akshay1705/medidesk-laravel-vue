@@ -9,22 +9,34 @@ const form = useForm({
     name: '',
     phone: '',
     appointment_date: '',
-    appointment_time: '',
+    hour: '',
+    minute: '',
+    ampm: 'AM',
 })
 
 const submit = () => {
+    // Convert to 24-hour format
+    let hour = parseInt(form.hour)
+    if (form.ampm === 'PM' && hour !== 12) hour += 12
+    if (form.ampm === 'AM' && hour === 12) hour = 0
+    const time = `${String(hour).padStart(2, '0')}:${form.minute}`
+
+    const payload = {
+        name: form.name,
+        phone: form.phone,
+        appointment_date: form.appointment_date,
+        appointment_time: time,
+    }
+
     form.post('/appointments', {
+        data: payload,
         onSuccess: () => {
             form.reset()
-            toast.success('✅ Appointment added successfully!')
-        },
-        onError: () => {
-            if (form.errors.phone) {
-                toast.error(form.errors.phone)
-            }
+            alert('Appointment added successfully!')
         }
     })
 }
+
 </script>
 
 
@@ -59,8 +71,37 @@ const submit = () => {
 
             <!-- Appointment Time -->
             <div>
-                <label class="block font-medium">Appointment Time</label>
-                <input v-model="form.appointment_time" type="time" class="w-full mt-1 p-2 border rounded" required />
+                <label class="block font-medium mb-1">Appointment Time</label>
+                <div class="flex gap-3 items-center">
+                    <!-- Hour -->
+                    <select v-model="form.hour" required
+                        class="w-24 p-2 border rounded focus:outline-none focus:ring focus:ring-blue-300">
+                        <option disabled value="">Hour</option>
+                        <option v-for="h in 12" :key="h" :value="String(h).padStart(2, '0')">
+                            {{ String(h).padStart(2, '0') }}
+                        </option>
+                    </select>
+
+                    <span class="text-xl font-semibold">:</span>
+
+                    <!-- Minute -->
+                    <select v-model="form.minute" required
+                        class="w-24 p-2 border rounded focus:outline-none focus:ring focus:ring-blue-300">
+                        <option disabled value="">Min</option>
+                        <option v-for="m in [0, 15, 30, 45]" :key="m" :value="String(m).padStart(2, '0')">
+                            {{ String(m).padStart(2, '0') }}
+                        </option>
+                    </select>
+
+                    <!-- AM/PM -->
+                    <select v-model="form.ampm" required
+                        class="w-20 p-2 border rounded focus:outline-none focus:ring focus:ring-blue-300">
+                        <option disabled value="">AM/PM</option>
+                        <option value="AM">AM</option>
+                        <option value="PM">PM</option>
+                    </select>
+                </div>
+
                 <p v-if="form.errors.appointment_time" class="text-red-500 text-sm mt-1">
                     {{ form.errors.appointment_time }}
                 </p>
