@@ -50,11 +50,13 @@ watch([search, todayOnly], () => {
     })
 })
 
+//formating date to display as dd-mm-yyyy
 const formatDate = (dateStr) => {
     const [year, month, day] = dateStr.split('-')
     return `${day}-${month}-${year}`
 }
 
+//formating time to display as 9:30 am/pm
 const formatTime = (timeStr) => {
     const [hour, minute] = timeStr.split(':')
     const h = parseInt(hour)
