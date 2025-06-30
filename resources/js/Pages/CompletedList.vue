@@ -5,10 +5,20 @@ import { Link } from '@inertiajs/vue3'
 defineOptions({ layout: AppLayout })
 defineProps(['appointments'])
 
+//formating date for dd-mm-yyyy
 const formatDate = (dateStr) => {
     const [year, month, day] = dateStr.split('-')
     return `${day}-${month}-${year}`
 }
+
+const formatTime = (timeStr) => {
+    const [hour, minute] = timeStr.split(':')
+    const h = parseInt(hour)
+    const ampm = h >= 12 ? 'PM' : 'AM'
+    const formattedHour = h % 12 === 0 ? 12 : h % 12
+    return `${formattedHour}:${minute} ${ampm}`
+}
+
 </script>
 
 <template>
@@ -32,7 +42,7 @@ const formatDate = (dateStr) => {
                         <td class="p-3 text-center">{{ a.name }}</td>
                         <td class="p-3 text-center">{{ a.phone }}</td>
                         <td class="p-3 text-center">{{ formatDate(a.appointment_date) }}</td>
-                        <td class="p-3 text-center">{{ a.appointment_time }}</td>
+                        <td class="p-3 text-center">{{ formatTime(a.appointment_time) }}</td>
                     </tr>
 
                     <tr v-if="appointments.length === 0">

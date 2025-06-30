@@ -55,6 +55,13 @@ const formatDate = (dateStr) => {
     return `${day}-${month}-${year}`
 }
 
+const formatTime = (timeStr) => {
+    const [hour, minute] = timeStr.split(':')
+    const h = parseInt(hour)
+    const ampm = h >= 12 ? 'PM' : 'AM'
+    const formattedHour = h % 12 === 0 ? 12 : h % 12
+    return `${formattedHour}:${minute} ${ampm}`
+}
 
 </script>
 
@@ -90,7 +97,7 @@ const formatDate = (dateStr) => {
                         <td class="p-3 text-center">{{ a.name }}</td>
                         <td class="p-3 text-center">{{ a.phone }}</td>
                         <td class="p-3 text-center">{{ formatDate(a.appointment_date) }}</td>
-                        <td class="p-3 text-center">{{ a.appointment_time }}</td>
+                        <td class="p-3 text-center">{{ formatTime(a.appointment_time) }}</td>
                         <td class="p-3 text-center">
                             <button @click="markDone(a.id)" :disabled="processing"
                                 class="px-3 py-1 text-sm bg-green-600 text-white rounded hover:bg-green-700 disabled:opacity-50">
