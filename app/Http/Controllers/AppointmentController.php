@@ -9,15 +9,31 @@ use Carbon\Carbon;
 
 class AppointmentController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $appointments = Appointment::where('is_done', false)
+        $query = Appointment::query()
+            ->where('is_done', false)
             ->orderBy('appointment_date')
-            ->orderBy('appointment_time')
-            ->get();
+            ->orderBy('appointment_time');
+
+        // Apply search filter
+        if ($search = $request->input('search')) {
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                    ->orWhere('phone', 'like', "%{$search}%");
+            });
+        }
+
+        // Filter for today
+        if ($request->boolean('today')) {
+            $query->whereDate('appointment_date', now()->toDateString());
+        }
+
+        $appointments = $query->paginate(5)->withQueryString();
 
         return Inertia::render('AppointmentList', compact('appointments'));
     }
+
 
     public function completed()
     {
