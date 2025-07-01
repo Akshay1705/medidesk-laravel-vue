@@ -106,7 +106,7 @@ const formatTime = (timeStr) => {
                                 DONE ✅
                             </button>
                             <button @click="cancelAppointment(a.id)" :disabled="processing"
-                                class="px-3 py-1 ml-2 text-sm bg-red-700 text-white rounded hover:bg-red-800 disabled:opacity-50">
+                                class="px-3 py-1 ml-2 text-sm bg-red-100 border border-red-700 text-white rounded hover:bg-red-800 disabled:opacity-50">
                                 ❌
                             </button>
                         </td>
