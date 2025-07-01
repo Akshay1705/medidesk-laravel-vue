@@ -23,8 +23,13 @@ const formatTime = (timeStr) => {
 
 <template>
     <div class="p-6">
-        <div class="flex items-center justify-between mb-4">
-            <h1 class="text-2xl font-bold">✅ Completed Appointments</h1>
+        <div class="flex items-center justify-between mb-6">
+            <h1 class="text-2xl font-bold text-gray-800">✅ Completed Appointments</h1>
+
+            <a href="/appointments/export" download
+            class="inline-flex items-center gap-2 bg-indigo-600 text-white px-4 py-2 rounded-md shadow hover:bg-indigo-700 transition">
+                ⬇ Export
+            </a>
         </div>
 
         <div class="overflow-x-auto bg-white shadow rounded-xl">

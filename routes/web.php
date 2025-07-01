@@ -5,6 +5,7 @@ use Inertia\Inertia;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\AppointmentExportController;
 
 // 🌐 Welcome Page for Guests
 Route::get('/', function () {
@@ -28,7 +29,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/appointments', [AppointmentController::class, 'store'])->name('appointments.store');
     Route::delete('/appointments/{appointment}', [AppointmentController::class, 'destroy'])->name('appointments.destroy');
     Route::put('/appointments/{appointment}/complete', [AppointmentController::class, 'markComplete'])->name('appointments.complete');
-
+    Route::get('/appointments/export', [AppointmentExportController::class, 'export'])->name('appointments.export');
 });
 
 // 🔐 Auth scaffolding (login, register, etc.)

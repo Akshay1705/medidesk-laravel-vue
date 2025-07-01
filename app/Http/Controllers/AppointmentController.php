@@ -38,8 +38,8 @@ class AppointmentController extends Controller
     public function completed()
     {
         $appointments = Appointment::where('is_done', true)
-            ->orderBy('appointment_date')
-            ->orderBy('appointment_time')
+            ->orderByDesc('appointment_date')
+            ->orderByDesc('appointment_time')
             ->get();
 
         return Inertia::render('CompletedList', [
