@@ -1,43 +1,49 @@
 <script setup>
 import { useForm } from '@inertiajs/vue3'
 import AppLayout from '@/Layouts/AppLayout.vue'
-import { toast } from 'vue3-toastify' // optional for notification
+import { toast } from 'vue3-toastify'
+import 'vue3-toastify/dist/index.css'
 
 defineOptions({ layout: AppLayout })
 
 const form = useForm({
-    name: '',
-    phone: '',
-    appointment_date: '',
-    hour: '',
-    minute: '',
-    ampm: 'AM',
+  name: '',
+  phone: '',
+  appointment_date: '',
+  hour: '',
+  minute: '',
+  ampm: 'AM',
 })
 
 const submit = () => {
-    // Convert to 24-hour format
-    let hour = parseInt(form.hour)
-    if (form.ampm === 'PM' && hour !== 12) hour += 12
-    if (form.ampm === 'AM' && hour === 12) hour = 0
-    const time = `${String(hour).padStart(2, '0')}:${form.minute}`
+  let hour = parseInt(form.hour)
+  if (form.ampm === 'PM' && hour !== 12) hour += 12
+  if (form.ampm === 'AM' && hour === 12) hour = 0
 
-    const payload = {
-        name: form.name,
-        phone: form.phone,
-        appointment_date: form.appointment_date,
-        appointment_time: time,
+  const time = `${String(hour).padStart(2, '0')}:${form.minute}`
+
+  const payload = {
+    name: form.name,
+    phone: form.phone,
+    appointment_date: form.appointment_date,
+    hour: parseInt(form.hour),
+    minute: parseInt(form.minute),
+    ampm: form.ampm,
+  }
+
+  form.post('/appointments', {
+    data: payload,
+    onSuccess: () => {
+      toast.success('✅ Appointment added successfully!')
+      form.reset()
+    },
+    onError: () => {
+      toast.error('❌ Failed to add appointment. Please check inputs.')
     }
-
-    form.post('/appointments', {
-        data: payload,
-        onSuccess: () => {
-            form.reset()
-            alert('Appointment added successfully!')
-        }
-    })
+  })
 }
-
 </script>
+
 
 
 <template>

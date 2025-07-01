@@ -78,7 +78,7 @@ const formatTime = (timeStr) => {
 
             <label class="flex items-center space-x-2">
                 <input type="checkbox" v-model="todayOnly" />
-                <span>Today's Appointments Only</span>
+                <span>Today's Appointments</span>
             </label>
         </div>
 
