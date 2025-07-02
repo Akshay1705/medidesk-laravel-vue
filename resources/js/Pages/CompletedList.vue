@@ -34,7 +34,7 @@ const formatTime = (timeStr) => {
 
         <div class="overflow-x-auto bg-white shadow rounded-xl">
             <table class="min-w-full text-left border">
-                <thead class="bg-gray-100">
+                <thead class="bg-blue-100">
                     <tr>
                         <th class="p-3 border text-center">Name</th>
                         <th class="p-3 border text-center">Phone</th>

@@ -29,7 +29,7 @@ class AppointmentController extends Controller
             $query->whereDate('appointment_date', now()->toDateString());
         }
 
-        $appointments = $query->paginate(5)->withQueryString();
+        $appointments = $query->paginate(10)->withQueryString();
 
         return Inertia::render('AppointmentList', compact('appointments'));
     }
